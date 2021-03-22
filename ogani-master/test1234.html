@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .item {
+            margin: 0.5em;
+            padding: 0.5em;
+            width: 40px;
+            height: 40px;
+            float: left;
+            color: white;
+        }
+
+        .item p {
+            margin: 0;
+            padding: 0;
+        }
+
+        .filter {
+            cursor: pointer;
+        }
+
+
+        }
+
+        .sort.btn {
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+
+
+    <script type="text/javascript">
+        var options = {
+            valueNames: ['category', 'price']
+        };
+
+        var featureList = new List('piece-search', options);
+
+
+
+
+        $('#minPrice, #maxPrice').on('change keydown paste input click', function () {
+            var minPrice = parseInt($('#minPrice').val(), 10);
+            var maxPrice = parseInt($('#maxPrice').val(), 10);
+            var category = $('[name="category"]:checked').val();
+            featureList.filter(function (item) {
+                if (category === 'all') {
+                    if (item.values().price >= minPrice && item.values().price <= maxPrice) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } else {
+                    if (item.values().price >= minPrice && item.values().price <= maxPrice && item.values().category === category) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+
+            });
+            return false;
+        });
+
+
+
+        $('[name="category"]').on('change', function () {
+            var minPrice = parseInt($('#minPrice').val(), 10);
+            var maxPrice = parseInt($('#maxPrice').val(), 10);
+            var category = $('[name="category"]:checked').val();
+            console.log(category)
+            featureList.filter(function (item) {
+                if (category === 'all') {
+                    if (item.values().price >= minPrice && item.values().price <= maxPrice) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } else {
+                    if (item.values().price >= minPrice && item.values().price <= maxPrice && item.values().category === category) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+
+            });
+            return false;
+        });
+    </script>
+
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <div id="piece-search">
+
+        <ul class="sort-by">
+            <li>
+                <input class="search" placeholder="Search...">
+                <input type="number" placeholder="min price" id="minPrice" value="0" />
+                <input type="number" placeholder="max price" id="maxPrice" value="100" />
+            </li>
+        </ul>
+
+        <div><label><input type="radio" name="category" value="all" checked>Show all</label></div>
+        <div><label><input type="radio" name="category" value="Red">Red</label></div>
+        <div><label><input type="radio" name="category" value="Blue">Blue</label></div>
+
+        <ul class="list">
+
+            <li class="item" style="background: blue">
+                <p class="category">Blue</p>
+                <p class="price">14</p>
+            </li>
+
+            <li class="item" style="background: red">
+                <p class="category">Red</p>
+                <p class="price">37</p>
+            </li>
+
+            <li class="item" style="background: blue">
+                <p class="category">Blue</p>
+                <p class="price">22</p>
+            </li>
+
+            <li class="item" style="background: blue">
+                <p class="category">Blue</p>
+                <p class="price">58</p>
+            </li>
+
+            <li class="item" style="background: red">
+                <p class="category">Red</p>
+                <p class="price">45</p>
+            </li>
+        </ul>
+    </div>
+</body>
+
+
+</html>
